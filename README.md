@@ -1,68 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# react路由的配置：
 
-## Available Scripts
+[react-router](https://github.com/ReactTraining/react-router)可以让根组件动态的去挂载不同的其他组件（比如本demo中的首页组件、新闻组件、商品组件），根据用户访问的地址动态加载不同的组件
 
-In the project directory, you can run:
+1. 找到[官方文档](https://reacttraining.com/react-router/web/example/basic)：https://reacttraining.com/react-router/web/example/basic
 
-### `npm start`
+2. 要配置路由，首先得引入 `react-router-dom` 模块
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```sh
+npm install react-router-dom --save
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+3. 找到项目的根组件引入react-router-dom
 
-### `npm test`
+`import { BrowserRouter as Router, Route, Link } from "react-router-dom"`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. 复制官网文档根组件里面的内容进行修改（加载的组件要提前引入）；在根组件里边配置路由，用`<Router></Router>`包裹起来；使用 `<Link to=''>` 实现路由的切换，也就是页面的跳转
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+<Router>
+  <Link to="/">首页</Link>
+  <Link to="/news">新闻</Link>
+  <Link to="/product">商品</Link>
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+  <Route exact path="/" component={Home} />
+  <Route path="/news" component={News} />    
+  <Route path="/product" component={Product} />   
+</Router>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+注意：**exact表示严格匹配**
 
-### `npm run eject`
+# 页面传值
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+一个页面跳转到另一个页面进行传值：
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. get传值
+2. 动态路由
+3. localStorage
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+这里主要用到的是动态路由和get传值
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## react动态路由传值
 
-## Learn More
+比如一个页面列表list点击不同item跳转到不同详情页，需要把item的值传入到详情页，这个时候就需要用到动态路由
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. 动态路由配置
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`<Route path="/content/:aid" component={Content} />`
 
-### Code Splitting
+2. 对应的动态路由加载的组件里面获取传值
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+`this.props.match.params`
 
-### Analyzing the Bundle Size
+跳转：`<Link to={`/content/${value.aid}`}>{value.title}</Link>`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+具体可以参考 New.js 组件到 Content.js 组件的传值方式
 
-### Making a Progressive Web App
+## react get传值  
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+1. 路由配置成静态即可
 
-### Advanced Configuration
+`<Route path="/productcontent" component={ProductContent} />`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+2. 获取 this.props.location.search，可以通过 `url`模块解析出来，使用[url模块](https://www.npmjs.com/package/url)需要安装url模块
 
-### Deployment
+`cnpm install url --save`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+具体可以参考 Product.js组件 到 ProductContent.js 组件的传值方式

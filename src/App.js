@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import Home from './components/Home'
+import News from './components/News'
+import Product from './components/Product'
+import Content from './components/Content'
+import ProductContent from './components/ProductContent'
+import './assets/css/index.css'
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+      <Router>
+        <div>           
+          <header className="title">
+            <Link to="/">首页</Link>
+            <Link to="/news">新闻</Link>
+            <Link to="/product">商品</Link>
+          </header>
+
+          <Route exact path="/" component={Home} />
+          <Route path="/news" component={News} />    
+          <Route path="/product" component={Product} />
+
+          <Route path="/productcontent" component={ProductContent} />
+          <Route path="/content/:aid" component={Content} />               
+        </div>
+      </Router>
+    )
   }
 }
 
-export default App;
+export default App
