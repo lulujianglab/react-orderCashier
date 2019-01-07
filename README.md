@@ -18,7 +18,7 @@
 <div className="p_content"  dangerouslySetInnerHTML={{__html: this.state.list.content}}> </div>
 ```
 
-后台已经允许跨域了，所以我们直接引入 [axios](https://github.com/axios/axios) ，请求api接口
+后台已经允许跨域了，所以我们直接引入 [axios](https://github.com/axios/axios) ，请求 api 接口
 
 ## Install
 
@@ -60,7 +60,7 @@ npm run build
 {this.state.list.img_url? <img src={`${this.state.domain}${this.state.list.img_url}`} /> : ''}
 ```
 
-这里衍生一个知识点，**也就是React请求数据为什么绝大部分要在componentDidMount方法里面做呢？**
+这里衍生一个知识点，也就是 **Reac t请求数据为什么绝大部分要在 componentDidMount 方法里面操作呢？**
 
 这与 React 组件的生命周期有关，组件挂载时有关的生命周期有以下几个：
 
