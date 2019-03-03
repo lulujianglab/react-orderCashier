@@ -60,7 +60,7 @@ npm run build
 {this.state.list.img_url? <img src={`${this.state.domain}${this.state.list.img_url}`} /> : ''}
 ```
 
-这里衍生一个知识点，也就是 **Reac t请求数据为什么绝大部分要在 componentDidMount 方法里面操作呢？**
+这里衍生一个知识点，也就是 **React 请求数据为什么绝大部分要在 componentDidMount 方法里面操作呢？**
 
 这与 React 组件的生命周期有关，组件挂载时有关的生命周期有以下几个：
 
